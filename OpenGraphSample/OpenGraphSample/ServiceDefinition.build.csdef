@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+  **********************************************************************************************
+
+  このファイルはツールによってプロジェクト ファイルから生成されました: ServiceDefinition.csdef
+
+  このファイルへの変更は、正しくない動作の原因となる場合があり、ファイルが再生成されると失われます。
+
+  **********************************************************************************************
+-->
+<ServiceDefinition name="OpenGraphSample" xmlns="http://schemas.microsoft.com/ServiceHosting/2008/10/ServiceDefinition">
+  <WebRole name="OpenGraphWeb" vmsize="Small">
+    <Sites>
+      <Site name="Web">
+        <Bindings>
+          <Binding name="Endpoint1" endpointName="Endpoint1" />
+        </Bindings>
+      </Site>
+    </Sites>
+    <Endpoints>
+      <InputEndpoint name="Endpoint1" protocol="http" port="80" />
+    </Endpoints>
+  </WebRole>
+</ServiceDefinition>

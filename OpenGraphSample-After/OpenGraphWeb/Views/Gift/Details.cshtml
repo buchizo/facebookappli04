@@ -1,0 +1,64 @@
+﻿@model OpenGraphWeb.Models.Gift
+@section FacebookObjectHeader{
+	<meta property="fb:app_id" content="@System.Configuration.ConfigurationManager.AppSettings["FacebookAppId"]" />
+	<meta property="og:type" content="@Html.DisplayFor(model => model.Type)" />
+	<meta property="og:url" content="@Request.Url" />
+	<meta property="og:title" content="@Html.DisplayFor(model => model.Title)" />
+	<meta property="og:image" content="@Html.DisplayFor(model => model.ImageUrl)" />
+	<meta property="og:description" content="@Html.DisplayFor(model => model.Description)" />
+	<script type="text/javascript">
+		function postDonate() {
+			FB.api(
+			'/me/@System.Configuration.ConfigurationManager.AppSettings["FacebookAppNamespace"]:donate',
+			'post',
+			{
+				gift: '@Request.Url'
+			},
+			function (response) {
+				if (!response || response.error) {
+					alert(response.error.message);
+				} else {
+					alert('Donate was successful! Action ID: ' + response.id);
+				}
+			}
+		);
+		}
+	</script>
+}
+@section Sidebar{
+	<div id="fb-root">
+	</div>
+	<fb:add-to-timeline mode="box"></fb:add-to-timeline>
+	<fb:activity actions="fbsampleazure:donate" />
+</fb:activity>
+}
+@{
+	ViewBag.Title = "ギフト - 詳細";
+}
+<h2>@ViewBag.Title</h2>
+<table class="table table-bordered">
+	<thead>
+		<tr>
+			<th>
+				Title
+			</th>
+			<th>
+				Description
+			</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				<img src="@Html.DisplayFor(model => model.ImageUrl)" alt="@Html.DisplayFor(model => model.Title)"/>
+				@Html.DisplayFor(model => model.Title)
+			</td>
+			<td>
+				@Html.DisplayFor(model => model.Description)
+			</td>
+		</tr>
+	</tbody>
+</table>
+<p>
+	<a class="btn btn-primary" onclick="postDonate()">Donate!</a> @Html.ActionLink("Back to List", "Index", null, new { @class = "btn" })
+</p>

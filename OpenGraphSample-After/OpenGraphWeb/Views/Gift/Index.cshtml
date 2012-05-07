@@ -1,0 +1,39 @@
+﻿@model IEnumerable<OpenGraphWeb.Models.Gift>
+@section Sidebar{
+	<div id="fb-root"></div>
+	<fb:add-to-timeline mode="box"></fb:add-to-timeline>
+	<fb:activity actions="fbsampleazure:donate"/></fb:activity>
+}
+
+@{
+	ViewBag.Title = "ギフト一覧";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<table class="table table-bordered">
+	<thead>
+		<tr>
+			<th>
+				Title
+			</th>
+			<th>
+				Description
+			</th>
+		</tr>
+	</thead>
+	<tbody>
+@foreach (var item in Model)
+{
+	<tr>
+		<td>
+			<img src="@Html.DisplayFor(modelItem => item.ImageUrl)" alt="@Html.DisplayFor(modelItem => item.Title)"/>
+			@Html.ActionLink(item.Title, "Details", new { id = item.GiftId })
+		</td>
+		<td>
+			@Html.DisplayFor(modelItem => item.Description)
+		</td>
+	</tr>
+}
+</tbody>
+</table>

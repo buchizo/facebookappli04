@@ -1,0 +1,40 @@
+﻿<!DOCTYPE html>
+<html xmlns:fb="https://www.facebook.com/2008/fbml" >
+<head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# @System.Configuration.ConfigurationManager.AppSettings["FacebookAppNamespace"]: http://ogp.me/ns/fb/@System.Configuration.ConfigurationManager.AppSettings["FacebookAppNamespace"]#">
+	@RenderSection("FacebookObjectHeader",false)
+	<meta charset="utf-8" />
+	<title>@ViewBag.Title</title>
+	<link rel="stylesheet" href="@Url.Content("~/Content/bootstrap.min.css")">
+	<link rel="stylesheet" href="@Url.Content("~/Content/bootstrap-responsive.min.css")">
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+	<script type="text/javascript" src="@Url.Content("~/Scripts/bootstrap.min.js")"></script>
+
+</head>
+<body>	
+	<div class="navbar">
+        <div class="navbar-inner">
+            <div class="container">
+				<a class="brand" href="/">OpenGraph Sample</a>
+                <div class="nav-collapse">
+					<ul class="nav">
+						<li>@Html.ActionLink("ホーム", "Index", "Home")</li>
+						<li>@Html.ActionLink("ギフト", "Index", "Gift")</li>
+					</ul>
+				</div>
+				@Html.Partial("_LogOnPartial")
+            </div>
+        </div>
+    </div>
+    <div class="container">
+		<div class="row">
+			<div class="span8">
+				@RenderBody()
+				<div id="fb-root"></div>
+			</div>
+			<div class="span4">
+				@RenderSection("Sidebar",false)
+			</div>
+		</div>
+    </div>
+</body>
+</html>

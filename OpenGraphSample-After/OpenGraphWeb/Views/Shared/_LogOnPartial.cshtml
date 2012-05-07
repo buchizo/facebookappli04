@@ -1,0 +1,37 @@
+﻿<ul class="nav pull-right">
+@if (Request.IsAuthenticated)
+{
+	<li><a href="https://www.facebook.com/">@User.Identity.Name</a></li>
+	<li>@Html.ActionLink("Log Off", "LogOff", "Account")</li>
+}
+else
+{ 
+	<li><fb:login-button show-faces="false" size="large" scope="publish_actions" onlogin="afterFacebookConnect();" autologoutlink="false"></fb:login-button></li>
+}
+</ul>
+<script language="javascript" type="text/javascript">
+	window.fbAsyncInit = function () {
+		FB.init({ appId: '@System.Configuration.ConfigurationManager.AppSettings["FacebookAppId"]',
+			status: true, cookie: true, xfbml: true, oauth: true
+		});
+	};
+	function afterFacebookConnect() {
+		FB.getLoginStatus(function (response) {
+			if (response.authResponse) {
+				window.location = '/Account/FacebookLogin?token=' +
+					   response.authResponse.accessToken;
+			} else {
+				// user clicked Cancel
+			}
+		});
+	};
+	$(document).ready(function () {
+		if (document.getElementById('fb-root') != undefined) {
+			var e = document.createElement('script');
+			e.type = 'text/javascript';
+			e.src = document.location.protocol + '//connect.facebook.net/en_US/all.js';
+			e.async = true;
+			document.getElementById('fb-root').appendChild(e);
+		}
+	});
+</script>
